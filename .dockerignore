@@ -1,0 +1,4 @@
+.git
+renderer/node_modules
+renderer/dist
+renderer/build
