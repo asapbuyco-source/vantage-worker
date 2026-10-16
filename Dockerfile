@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN git clone --depth 1 https://github.com/asapbuyco-source/vantage-worker.git /app
 
 WORKDIR /app/renderer
-RUN npm install --no-audit --no-fund
+RUN npm install --no-audit --no-fund --ignore-scripts
 
 # Pre-download Chromium Headless Shell so the first job doesn't pay for it
 RUN npx --yes remotion browser ensure || true

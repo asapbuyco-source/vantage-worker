@@ -1,0 +1,54 @@
+{
+  "name": "ai-video-studio-renderer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Remotion compositions + server-side rendering CLI",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "spec": ["dist/spec.d.ts"],
+      "composition": ["dist/composition-entry.d.ts"]
+    }
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./spec": {
+      "types": "./dist/spec.d.ts",
+      "import": "./dist/esm/spec.js",
+      "require": "./dist/spec.js",
+      "default": "./dist/spec.js"
+    },
+    "./composition": {
+      "types": "./dist/composition-entry.d.ts",
+      "import": "./dist/esm/composition-entry.js",
+      "require": "./dist/composition-entry.js",
+      "default": "./dist/composition-entry.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig.esm.json",
+    "typecheck": "tsc --noEmit",
+    "render": "tsx scripts/render.mts",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "@remotion/bundler": "^4.0.530",
+    "@remotion/renderer": "^4.0.530",
+    "@remotion/transitions": "^4.0.530",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.530"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3"
+  }
+}
