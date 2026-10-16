@@ -56,6 +56,8 @@ export interface RenderScene {
   trimEnd?: number;
   /** Vision-guided crop focus (0-100, horizontal) for 9:16 reframing */
   focusX?: number;
+  /** focus position at the end of the scene (0-100) — animates when set */
+  focusXEnd?: number;
 }
 
 export interface RenderBrand {

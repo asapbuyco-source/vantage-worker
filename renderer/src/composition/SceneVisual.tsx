@@ -5,12 +5,23 @@ import { RenderScene } from '../types';
 // ─── Video (with cover crop / contain) ────────────────────────────────────────
 
 const VideoVisual: React.FC<{ scene: RenderScene; fps: number }> = ({ scene, fps }) => {
+  const frame = useCurrentFrame();
   const hasVoice = Boolean(scene.voiceUrl);
   // Trim into the source asset — renders only the selected segment
   const startFrom = scene.trimStart ? Math.round(scene.trimStart * fps) : undefined;
   const endAt = scene.trimEnd
     ? Math.round(scene.trimEnd * fps)
     : Math.min(scene.frames, Math.round((scene.trimStart ?? 0) * fps) + scene.frames);
+  // Camera focus can animate across the scene when an end position is set
+  const focusStart = scene.focusX ?? 50;
+  const focusEnd = scene.focusXEnd ?? focusStart;
+  const focus =
+    scene.focusX !== undefined
+      ? interpolate(frame, [0, Math.max(1, scene.frames)], [focusStart, focusEnd], {
+          extrapolateLeft: 'clamp',
+          extrapolateRight: 'clamp',
+        })
+      : undefined;
   return (
     <AbsoluteFill>
       <OffthreadVideo
@@ -22,7 +33,7 @@ const VideoVisual: React.FC<{ scene: RenderScene; fps: number }> = ({ scene, fps
           width: '100%',
           height: '100%',
           objectFit: scene.fit ?? 'cover',
-          objectPosition: scene.focusX !== undefined ? `${scene.focusX}% center` : 'center',
+          objectPosition: focus !== undefined ? `${focus}% center` : 'center',
           backgroundColor: '#000',
         }}
       />
@@ -50,6 +61,11 @@ const ImageVisual: React.FC<{ scene: RenderScene }> = ({ scene }) => {
     transform = `scale(1.18) translateX(${interpolate(progress, [0, 1], [0, 4])}%)`;
   }
 
+  const focusStart = scene.focusX ?? 50;
+  const focusEnd = scene.focusXEnd ?? focusStart;
+  const focus =
+    scene.focusX !== undefined ? interpolate(progress, [0, 1], [focusStart, focusEnd]) : undefined;
+
   return (
     <AbsoluteFill style={{ backgroundColor: '#000' }}>
       <Img
@@ -58,7 +74,7 @@ const ImageVisual: React.FC<{ scene: RenderScene }> = ({ scene }) => {
           width: '100%',
           height: '100%',
           objectFit: scene.fit ?? 'cover',
-          objectPosition: scene.focusX !== undefined ? `${scene.focusX}% center` : 'center',
+          objectPosition: focus !== undefined ? `${focus}% center` : 'center',
           transform,
         }}
       />

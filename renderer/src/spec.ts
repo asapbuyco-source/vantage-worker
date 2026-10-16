@@ -39,6 +39,7 @@ export interface SnapshotScene {
   trimEnd?: number;
   /** Vision-guided crop focus (0-100) */
   focusX?: number;
+  focusXEnd?: number;
 }
 
 export interface ProjectSnapshot {
@@ -173,6 +174,7 @@ export function buildRenderSpec(snapshot: ProjectSnapshot, fps: number = FPS): R
       trimStart: scene.trimStart,
       trimEnd: scene.trimEnd,
       focusX: scene.focusX,
+      focusXEnd: scene.focusXEnd,
     };
   });
 
