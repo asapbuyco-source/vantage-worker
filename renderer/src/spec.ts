@@ -7,7 +7,7 @@ import { RenderSpec, RenderScene, RenderCaption, RenderTransition, RenderCaption
 export type { RenderSpec, RenderScene, RenderCaption } from './types';
 
 export const FPS = 30;
-export const MUSIC_VOLUME = 0.18;
+export const MUSIC_VOLUME = 0.35;
 
 export type SnapshotVisualType = 'video' | 'image' | 'motion_graphic' | 'uploaded_asset' | 'avatar';
 

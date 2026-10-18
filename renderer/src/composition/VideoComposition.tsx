@@ -41,8 +41,8 @@ export const VideoComposition: React.FC<{ spec: RenderSpec | null }> = ({ spec }
       const start = sceneStarts[i]! / fps;
       return t >= start && t < start + s.duration;
     });
-    // Duck under speech (v1: -70%); the mix stays deterministic
-    return narrationActive ? base * 0.3 : base;
+    // Duck under speech (kept clearly audible, ~50%)
+    return narrationActive ? base * 0.5 : base;
   };
   const colors = spec.brand?.colors ?? DEFAULT_COLORS;
   const fonts = spec.brand?.fonts ?? DEFAULT_FONTS;
