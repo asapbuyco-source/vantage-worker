@@ -80,6 +80,7 @@ def run_render(job):
         "sizeBytes": size,
         "durationSeconds": duration,
         "uploadStatus": resp.status_code,
+        "sourcesSynced": os.path.exists("/app/.sources-synced"),
     }
 
 

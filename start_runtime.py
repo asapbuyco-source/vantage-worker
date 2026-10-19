@@ -45,6 +45,8 @@ def sync_sources() -> None:
 if __name__ == "__main__":
     try:
         sync_sources()
+        with open("/app/.sources-synced", "w", encoding="utf-8") as marker:
+            marker.write("1")
     except Exception:
         traceback.print_exc()
         print("[runtime-sync] failed — using baked sources", flush=True)
